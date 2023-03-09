@@ -1,7 +1,7 @@
 """this file contains the application factory"""
 import os
 
-from flask import Flask
+from flask import Flask, render_template
 
 
 def create_app(test_config=None):

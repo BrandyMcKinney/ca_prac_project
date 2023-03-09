@@ -37,7 +37,7 @@ def register():
                 #db.commit() needs to be called afterwards to save the changes
                 db.commit()  
             except db.IntegrityError:
-                error = f"User" {username} is already registered."
+                error = f"User {username} is already registered."
             else:
                 return redirect(url_for("auth.login")) #url_for() is preferably rather than putting actual url
         
@@ -89,4 +89,15 @@ def logout():
     session.clear()
     return redirect(url_for('index'))
 
-"""To (create, edit, delete) in this case blog posts"""
+"""To create, edit, delete (in this case) blog posts"""
+
+def login_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            return redirect(url_for('auth.login'))
+
+        return view(**kwargs)
+
+    return wrapped_view
+
