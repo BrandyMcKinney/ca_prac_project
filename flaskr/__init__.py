@@ -1,13 +1,15 @@
+"""this file contains the application factory"""
 import os
 
 from flask import Flask
 
 
 def create_app(test_config=None):
+    #create_app is the application factory function
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
-        #override dev before deploying
+        #override dev before deploying!
         SECRET_KEY='dev', 
         DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
     )
@@ -30,7 +32,14 @@ def create_app(test_config=None):
     def hello():
         return 'Hello, Cadell & Associates!'
 
+    """importing everything from the db and the init_app function"""
+    
     from . import db
     db.init_app(app)
+
+    """importing and registering blueprint auth.py using app.register_blueprint()"""
+
+    from . import auth
+    app.register_blueprint(auth.bp)
 
     return app

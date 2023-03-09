@@ -1,3 +1,7 @@
+"""Defining and accessing the db. This creates a user and posts. Pythong functions will
+run these commands in the db.py file"""
+
+
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS post;
 
