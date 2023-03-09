@@ -21,7 +21,7 @@ def close_db(e=None):
 
     if db is not None:
         db.close()
-
+"""Functions that will run the SQL commands"""
 def init_db():
     db = get_db()
 
@@ -34,6 +34,8 @@ def init_db_command():
     init_db()
     click.echo('Initialized the database.')
 
+"""close_db and init_db_command registered with application instance
+in order to be used by the application"""
 def init_app(app):
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
